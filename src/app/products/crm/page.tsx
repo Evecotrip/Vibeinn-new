@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import { Button } from "@/components/ui/button";
@@ -21,46 +22,63 @@ export const metadata = {
 };
 
 export default function CRMPage() {
+  const navigate = useNavigate();
+  const words = ["Sales", "Customers", "Relationships"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+    
+    const handleTyping = () => {
+      if (!isDeleting) {
+        if (displayedText.length < currentWord.length) {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
+          setTypingSpeed(150);
+        } else {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (displayedText.length > 0) {
+          setDisplayedText(currentWord.slice(0, displayedText.length - 1));
+          setTypingSpeed(100);
+        } else {
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, currentWordIndex, typingSpeed]);
+
   const features = [
-    {
-      icon: <Users2 className="w-8 h-8" />,
-      title: "Contact Management",
-      description: "Organize and manage all customer contacts, interactions, and communications."
-    },
     {
       icon: <Target className="w-8 h-8" />,
       title: "Lead Management",
-      description: "Track and nurture leads through your sales pipeline efficiently."
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "Sales Pipeline",
-      description: "Visual sales pipeline to track deals and forecast revenue accurately."
-    },
-    {
-      icon: <Mail className="w-8 h-8" />,
-      title: "Email Integration",
-      description: "Seamless email integration for tracking communications and campaigns."
+      description: "Track and nurture leads through your sales pipeline efficiently. Capture leads from multiple sources, qualify them, and convert them into customers with automated workflows.",
+      image: "/crm/crm-lead.jpeg"
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
       title: "Analytics & Reports",
-      description: "Real-time insights into sales performance and customer behavior."
+      description: "Real-time insights into sales performance and customer behavior. Generate comprehensive reports, track KPIs, and make data-driven decisions to boost revenue.",
+      image: "/crm/crm-report.jpeg"
+    },
+    {
+      icon: <Users2 className="w-8 h-8" />,
+      title: "Dashboard & Tasks",
+      description: "Unified dashboard to manage all customer contacts, interactions, and communications. Stay organized with task management, reminders, and activity tracking.",
+      image: "/crm/crm-dashboard.jpeg"
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Automation",
-      description: "Automate repetitive tasks and workflows to boost productivity."
-    },
-    {
-      icon: <Phone className="w-8 h-8" />,
-      title: "Call Management",
-      description: "Integrated calling features with call logging and recording."
-    },
-    {
-      icon: <PieChart className="w-8 h-8" />,
-      title: "Customer Insights",
-      description: "360-degree view of customer interactions and purchase history."
+      title: "Task Automation",
+      description: "Automate repetitive tasks and workflows to boost productivity. Set up triggers, automated follow-ups, and streamline your sales process for maximum efficiency.",
+      image: "/crm/crm-tasks.jpeg"
     }
   ];
 
@@ -86,24 +104,31 @@ export default function CRMPage() {
                 Customer Relationship Management
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                Grow Your Business with Smart CRM
+                Grow Your{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-600">
+                  {displayedText}
+                  <span className="animate-pulse">|</span>
+                </span>
+                <br />
+                with Smart CRM
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300">
                 Transform the way you manage customer relationships. Our CRM helps you track leads, close deals faster, and build lasting customer relationships at scale.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-700 hover:to-teal-600 text-white">
-                  Request Demo
-                </Button>
-                <Button size="lg" variant="outline">
-                  View Pricing
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white"
+                  onClick={() => navigate('/contact')}
+                >
+                  Book a Demo
                 </Button>
               </div>
             </div>
             <div className="lg:w-1/2">
               <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8">
                 <img 
-                  src="/placeholder.svg" 
+                  src="/pages/crm.png" 
                   alt="CRM Dashboard" 
                   className="rounded-lg w-full"
                   onError={(e) => {
@@ -130,21 +155,47 @@ export default function CRMPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="space-y-24">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl hover:shadow-lg transition-shadow"
+                className={`flex flex-col ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } items-center gap-12`}
               >
-                <div className="text-green-600 dark:text-green-400 mb-4">
-                  {feature.icon}
+                {/* Text Content */}
+                <div className="lg:w-1/2 space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                      {feature.title}
+                    </h3>
+                  </div>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {feature.description}
-                </p>
+
+                {/* Image */}
+                <div className="lg:w-1/2">
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-teal-400 dark:from-green-600 dark:to-teal-600 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                    <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-slate-700">
+                      <img 
+                        src={feature.image}
+                        alt={feature.title}
+                        className="w-full h-auto object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.parentElement!.innerHTML = `<div class="w-full h-80 bg-gradient-to-br from-green-100 to-teal-100 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center text-gray-500 dark:text-gray-400 text-xl font-semibold">${feature.title}</div>`;
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -180,10 +231,19 @@ export default function CRMPage() {
             Join thousands of sales teams using our CRM to close more deals and build better customer relationships.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100">
-              Start Free Trial
+            <Button 
+              size="lg" 
+              className="bg-white text-green-600 hover:bg-gray-100"
+              onClick={() => navigate('/contact')}
+            >
+              Book a Demo
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white/10"
+              onClick={() => navigate('/contact')}
+            >
               Contact Sales
             </Button>
           </div>

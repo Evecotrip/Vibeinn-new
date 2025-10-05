@@ -93,11 +93,12 @@ const Navbar = () => {
             Portfolio
           </a>
           <a
-            href="/help-center"
+            href="/careers"
             className="text-gray-700 dark:text-gray-300 hover:text-[#0066FF] dark:hover:text-blue-400 transition-colors font-medium"
           >
-            Help
+            Careers
           </a>
+          
         </div>
 
         {/* Right side actions */}
@@ -107,8 +108,9 @@ const Navbar = () => {
             variant="default"
             size="sm"
             className="hidden md:flex bg-gradient-to-r from-[#0066FF] to-blue-500 hover:from-[#0052CC] hover:to-blue-600 text-white border-none rounded-full px-6"
+            onClick={() => window.location.href = '/contact'}
           >
-            Get Started
+            Book a Demo
           </Button>
 
           {/* Mobile menu button */}
@@ -163,6 +165,18 @@ const Navbar = () => {
               Portfolio
             </a>
             <a
+              href="/careers"
+              className="text-gray-700 dark:text-gray-300 hover:text-[#0066FF] dark:hover:text-blue-400 transition-colors font-medium py-2"
+            >
+              Careers
+            </a>
+            <a
+              href="/contact"
+              className="text-gray-700 dark:text-gray-300 hover:text-[#0066FF] dark:hover:text-blue-400 transition-colors font-medium py-2"
+            >
+              Contact
+            </a>
+            <a
               href="/help-center"
               className="text-gray-700 dark:text-gray-300 hover:text-[#0066FF] dark:hover:text-blue-400 transition-colors font-medium py-2"
             >
@@ -172,8 +186,9 @@ const Navbar = () => {
               variant="default"
               size="sm"
               className="mt-3 bg-gradient-to-r from-[#0066FF] to-blue-500 hover:from-[#0052CC] hover:to-blue-600 text-white border-none rounded-full"
+              onClick={() => window.location.href = '/contact'}
             >
-              Get Started
+              Book A Demo
             </Button>
           </div>
         </div>

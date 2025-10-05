@@ -4,7 +4,7 @@ import { CheckCircle, Shield, TrendingUp, Users } from "lucide-react";
 
 const RewardsSection = () => {
   return (
-    <Section id="benefits" bgClass="bg-slate-50" darkBgClass="bg-slate-900">
+    <Section id="benefits" bgClass="bg-slate-50 dark:bg-slate-900">
       <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-16 items-center">
         <div className="md:w-1/2 animate-on-scroll opacity-0">
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 relative overflow-hidden">
@@ -77,7 +77,7 @@ const RewardsSection = () => {
             Vibeinn Techverse provides enterprise-grade SaaS solutions that scale with your business. Our platforms are trusted by companies worldwide to streamline operations and drive growth.
           </p>
           <p className="text-lg text-gray-600 dark:text-gray-300">
-            From startups to Fortune 500 companies, our solutions adapt to your needs with flexible pricing, robust features, and unparalleled support.
+            From startups to Fortune 500 companies, our solutions adapt to your needs with robust features, seamless integration, and unparalleled support.
           </p>
         </div>
       </div>

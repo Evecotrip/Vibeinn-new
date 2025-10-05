@@ -5,8 +5,7 @@ const HowItWorksSection = () => {
   return (
     <Section
       id="how-it-works"
-      bgClass="bg-white"
-      darkBgClass="bg-gradient-to-br from-slate-800 to-slate-900"
+      bgClass="bg-white dark:bg-gradient-to-br dark:from-slate-800 dark:to-slate-900"
     >
       <div className="text-center mb-16 animate-on-scroll opacity-0">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white">

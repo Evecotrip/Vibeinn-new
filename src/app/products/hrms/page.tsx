@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import { Button } from "@/components/ui/button";
@@ -21,46 +22,57 @@ export const metadata = {
 };
 
 export default function HRMSPage() {
+  const navigate = useNavigate();
+  const words = ["HR", "People", "Workforce"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+    
+    const handleTyping = () => {
+      if (!isDeleting) {
+        if (displayedText.length < currentWord.length) {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
+          setTypingSpeed(150);
+        } else {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (displayedText.length > 0) {
+          setDisplayedText(currentWord.slice(0, displayedText.length - 1));
+          setTypingSpeed(100);
+        } else {
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, currentWordIndex, typingSpeed]);
+
   const features = [
     {
       icon: <Users className="w-8 h-8" />,
       title: "Employee Management",
-      description: "Centralized employee database with complete profile management and documentation."
+      description: "Centralized employee database with complete profile management and documentation. Maintain comprehensive employee records, track history, and manage organizational structure efficiently.",
+      image: "/hrms/hrms-dashboard.jpeg"
     },
     {
       icon: <Clock className="w-8 h-8" />,
       title: "Time & Attendance",
-      description: "Automated time tracking, shift scheduling, and attendance management."
-    },
-    {
-      icon: <DollarSign className="w-8 h-8" />,
-      title: "Payroll Processing",
-      description: "Automated payroll calculation, tax management, and salary disbursement."
+      description: "Automated time tracking, shift scheduling, and attendance management. Real-time monitoring, biometric integration, and accurate timesheet management.",
+      image: "/hrms/hrms-attendance.jpeg"
     },
     {
       icon: <FileText className="w-8 h-8" />,
       title: "Leave Management",
-      description: "Streamlined leave requests, approvals, and balance tracking."
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "Performance Management",
-      description: "Goal setting, performance reviews, and 360-degree feedback systems."
-    },
-    {
-      icon: <UserCheck className="w-8 h-8" />,
-      title: "Recruitment",
-      description: "End-to-end recruitment process from job posting to onboarding."
-    },
-    {
-      icon: <ClipboardList className="w-8 h-8" />,
-      title: "Compliance & Reports",
-      description: "Automated compliance tracking and comprehensive HR analytics."
-    },
-    {
-      icon: <Calendar className="w-8 h-8" />,
-      title: "Employee Self-Service",
-      description: "Empower employees with self-service portal for requests and updates."
+      description: "Streamlined leave requests, approvals, and balance tracking. Automated workflows, multiple leave types, and seamless approval process for better work-life balance.",
+      image: "/hrms/hrms-leave.jpeg"
     }
   ];
 
@@ -86,24 +98,31 @@ export default function HRMSPage() {
                 Human Resource Management System
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                Modernize Your HR Operations
+                Modernize Your{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+                  {displayedText}
+                  <span className="animate-pulse">|</span>
+                </span>
+                 
+                Operations
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300">
                 Streamline every aspect of human resource management from recruitment to retirement. Our HRMS simplifies HR processes, reduces paperwork, and empowers your team.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white">
-                  Request Demo
-                </Button>
-                <Button size="lg" variant="outline">
-                  View Pricing
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                  onClick={() => navigate('/contact')}
+                >
+                  Book a Demo
                 </Button>
               </div>
             </div>
             <div className="lg:w-1/2">
               <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8">
                 <img 
-                  src="/placeholder.svg" 
+                  src="/pages/hrms.png" 
                   alt="HRMS Dashboard" 
                   className="rounded-lg w-full"
                   onError={(e) => {
@@ -130,21 +149,47 @@ export default function HRMSPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="space-y-24">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl hover:shadow-lg transition-shadow"
+                className={`flex flex-col ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } items-center gap-12`}
               >
-                <div className="text-purple-600 dark:text-purple-400 mb-4">
-                  {feature.icon}
+                {/* Text Content */}
+                <div className="lg:w-1/2 space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                      {feature.title}
+                    </h3>
+                  </div>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {feature.description}
-                </p>
+
+                {/* Image */}
+                <div className="lg:w-1/2">
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 dark:from-purple-600 dark:to-pink-600 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                    <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-slate-700">
+                      <img 
+                        src={feature.image}
+                        alt={feature.title}
+                        className="w-full h-auto object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.parentElement!.innerHTML = `<div class="w-full h-80 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center text-gray-500 dark:text-gray-400 text-xl font-semibold">${feature.title}</div>`;
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -180,10 +225,19 @@ export default function HRMSPage() {
             Join leading companies using our HRMS to build better workplaces.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
-              Start Free Trial
+            <Button 
+              size="lg" 
+              className="bg-white text-purple-600 hover:bg-gray-100"
+              onClick={() => navigate('/contact')}
+            >
+              Book a Demo
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white/10"
+              onClick={() => navigate('/contact')}
+            >
               Contact Sales
             </Button>
           </div>

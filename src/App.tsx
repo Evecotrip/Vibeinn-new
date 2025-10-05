@@ -13,6 +13,8 @@ import Home from "./app/page";
 import AboutUs from "./app/about-us/page";
 import Blog from "./app/blog/page";
 import Careers from "./app/careers/page";
+import JobDetail from "./app/careers/[id]/page";
+import Contact from "./app/contact/page";
 import Community from "./app/community/page";
 import CookiePolicy from "./app/cookie-policy/page";
 import HelpCenter from "./app/help-center/page";
@@ -43,6 +45,8 @@ const App = () => (
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/careers" element={<Careers />} />
+            <Route path="/careers/:id" element={<JobDetail />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/community" element={<Community />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/help-center" element={<HelpCenter />} />

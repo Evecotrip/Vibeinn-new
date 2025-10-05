@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Users } from "lucide-react";
 
 const HeroSection = () => {
-  const words = ["Partners'", "Employees'", "Customers'"];
+  const words = ["Partner's", "Employee's", "Customer's"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -77,7 +77,7 @@ const HeroSection = () => {
                 <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#33C3F0] to-[#5B9BFF] border-2 border-white dark:border-slate-800"></div>
               </div>
               <span className="text-sm font-bold text-slate-800 dark:text-gray-300">
-                400+ HAPPY CUSTOMERS
+                HAPPY CUSTOMERS
               </span>
             </div>
 
@@ -106,6 +106,7 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-to-r from-[#6C47FF] to-[#0066FF] hover:from-[#5B3ACC] hover:to-[#0052CC] text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all"
+                onClick={() => window.location.href = '/contact'}
               >
                 Book A Demo
                 <ArrowRight className="ml-2 w-5 h-5" />

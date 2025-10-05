@@ -15,18 +15,20 @@ const CTASection = () => {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <Button
-            size="lg"
-            className="border-white/20 bg-white text-blue-600 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white"
+          <Button 
+            size="lg" 
+            className="bg-white text-primary hover:bg-gray-100 shadow-lg"
+            onClick={() => window.location.href = '/contact'}
           >
-            Start Free Trial
+            Book a Demo
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="border-white/20 bg-white/10 hover:bg-white/20 text-white dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+            onClick={() => window.location.href = '/contact'}
           >
-            Schedule Demo
+            Contact Sales
           </Button>
         </div>
       </div>
