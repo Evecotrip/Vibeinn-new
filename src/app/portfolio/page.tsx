@@ -12,6 +12,7 @@ import {
   Star,
   Phone,
   Mail,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import {
@@ -36,7 +37,7 @@ import {
 const PortfolioPage = () => {
   const projects = [
     {
-      title: "VibeInn App",
+      title: "Social Media App",
       description:
         "A comprehensive AI-powered social mobile application that lets you speak your heart out without fear of judgment. Be authentic, connect with like-minded people, and win rewards made for both Android and iOS platforms.",
       category: "Mobile Application",
@@ -126,7 +127,7 @@ const PortfolioPage = () => {
       },
     },
     {
-      title: "FreshGift E-commerce",
+      title: "E-commerce",
       description:
         "A modern e-commerce platform for fresh gifts and products, featuring intuitive shopping experience, secure payments, and efficient order management.",
       category: "E-commerce Platform",
@@ -179,7 +180,7 @@ const PortfolioPage = () => {
       },
     },
     {
-      title: "FreshGift Dashboard",
+      title: "Dashboard",
       description:
         "A comprehensive admin dashboard for FreshGift e-commerce platform, providing detailed analytics, inventory management, and business insights.",
       category: "Dashboard Application",
@@ -199,6 +200,131 @@ const PortfolioPage = () => {
         dataPoints: "1M+",
         reports: "50+",
         efficiency: "+40%",
+      },
+    },
+    {
+      title: "Institution",
+      description:
+        "Premier MEP (Mechanical, Electrical, Plumbing) engineering training institute with 20+ years of excellence. Comprehensive platform offering courses in HVAC, Electrical, Plumbing, Fire Fighting, Revit MEP, and energy simulation tools with 10,000+ successful alumni placed globally.",
+      category: "Education Platform",
+      image: "/portfolio/institute.png",
+      technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS", "Next.js"],
+      features: [
+        "17 specialized MEP courses",
+        "Online & offline training",
+        "Live interactive sessions",
+        "Industry certification programs",
+        "100% placement assistance",
+        "Expert faculty with 17+ years experience",
+      ],
+      status: "Live",
+      link: "https://alimrantaiba.com/",
+      year: "2024",
+      icon: <BookOpen className="w-8 h-8 text-blue-600" />,
+      stats: {
+        alumni: "10,000+",
+        courses: "17",
+        placement: "95%",
+      },
+    },
+    {
+      title: "High School Website",
+      description:
+        "Official website for Al Imran Group of Institutions 'JJ High School' featuring comprehensive information about academic programs, admissions, facilities, and school activities. A modern educational platform serving 3000+ students with 93+ dedicated teachers.",
+      category: "Educational Website",
+      image: "/portfolio/school.png",
+      technologies: ["React", "Tailwind CSS", "Vite", "Node.js"],
+      features: [
+        "Online admission portal",
+        "Virtual campus tour",
+        "Academic curriculum showcase",
+        "Gallery and events section",
+        "Career opportunities portal",
+        "Parent-teacher communication",
+      ],
+      status: "Live",
+      link: "https://jjhighschool.com/",
+      year: "2024",
+      icon: <Users className="w-8 h-8 text-purple-600" />,
+      stats: {
+        students: "3,000+",
+        teachers: "93+",
+        successRate: "98%",
+      },
+    },
+    {
+      title: "Perfumes Ecom",
+      description:
+        "Premium e-commerce platform for luxury perfumes and fragrances. Features men's, women's, and unisex collections with natural ingredients, cruelty-free products, and eco-friendly packaging. Complete online shopping experience with product tracking and secure payments.",
+      category: "E-commerce Platform",
+      image: "/portfolio/perfume.png",
+      technologies: ["WordPress", "WooCommerce", "PHP", "MySQL", "JavaScript"],
+      features: [
+        "Product catalog with categories",
+        "Secure payment gateway",
+        "Order tracking system",
+        "Customer reviews and ratings",
+        "Mobile-responsive design",
+        "Natural ingredients showcase",
+      ],
+      status: "Live",
+      link: "https://alimranperfumes.com/",
+      year: "2024",
+      icon: <ShoppingCart className="w-8 h-8 text-pink-600" />,
+      stats: {
+        products: "100+",
+        collections: "3",
+        rating: "4.9",
+      },
+    },
+    {
+      title: "Scrap & Waste Papers",
+      description:
+        "Professional scrap buying service platform with 15+ years of experience. Comprehensive solution for buying all types of scrap materials including paper waste, electronic scrap, IT equipment, batteries, and industrial waste with free doorstep pickup and instant cash payment.",
+      category: "Business Website",
+      image: "/portfolio/scrap.png",
+      technologies: ["React", "Tailwind CSS", "Node.js", "MongoDB"],
+      features: [
+        "Online quote request system",
+        "Pickup scheduling",
+        "Real-time price calculator",
+        "Multiple scrap categories",
+        "Instant cash payment tracking",
+        "24/7 customer support",
+      ],
+      status: "Live",
+      link: "https://www.scrapeandwastepapers.com/",
+      year: "2024",
+      icon: <BarChart3 className="w-8 h-8 text-green-600" />,
+      stats: {
+        experience: "15+ years",
+        customers: "5,000+",
+        paid: "₹10Cr+",
+      },
+    },
+    {
+      title: "Builders & Developers",
+      description:
+        "Leading construction company website showcasing 28+ years of excellence in commercial, residential, and industrial construction. Features portfolio of 500+ completed projects including the landmark Amazon Building in Hyderabad, comprehensive construction services, and project management solutions.",
+      category: "Construction Website",
+      image: "/portfolio/builder.png",
+      technologies: ["React", "Next.js", "Tailwind CSS", "MongoDB", "Node.js"],
+      features: [
+        "Project portfolio showcase",
+        "Service catalog",
+        "Online quotation system",
+        "Project timeline tracking",
+        "News and updates section",
+        "Career opportunities portal",
+      ],
+      status: "Live",
+      link: "https://www.alimranbuildersanddevelopers.com/",
+      year: "2024",
+      icon: <Star className="w-8 h-8 text-orange-600" />,
+      stats: {
+        projects: "500+",
+        team: "200+",
+        experience: "28+ years",
       },
     },
   ];
@@ -239,7 +365,7 @@ const PortfolioPage = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
+            {projects.slice(0, 10).map((project, index) => (
               <Card
                 key={index}
                 className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 overflow-hidden"
@@ -339,84 +465,46 @@ const PortfolioPage = () => {
                       ))}
                     </div>
                   </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                    {project.link && (
-                      <Button
-                        onClick={() => window.open(project.link, "_blank")}
-                        className="flex-1 bg-gradient-to-r from-[#0066FF] to-blue-500 hover:from-[#0052CC] hover:to-blue-600 text-white"
-                      >
-                        <ExternalLink className="mr-2 w-4 h-4" />
-                        View Live
-                      </Button>
-                    )}
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button
-                          variant="secondary"
-                          className="w-full sm:w-auto bg-white text-[#0066FF] hover:bg-gray-100 px-6 py-2"
-                        >
-                          <Users className="mr-2 w-4 h-4" />
-                          Get In Touch
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                          <DialogTitle className="text-2xl font-bold text-center">
-                            Contact Us
-                          </DialogTitle>
-                          <DialogDescription className="text-center">
-                            Ready to start your project? Get in touch with us
-                            today!
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="grid gap-6 py-4">
-                          <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
-                            <Phone className="w-6 h-6 text-[#0066FF]" />
-                            <div>
-                              <p className="font-semibold">Phone</p>
-                              <p className="text-gray-600">+91 95658 37503</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
-                            <Mail className="w-6 h-6 text-[#0066FF]" />
-                            <div>
-                              <p className="font-semibold">Email</p>
-                              <p className="text-gray-600">
-                                purvank.sarawagi@vibeinn.online
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex flex-col gap-2 mt-4">
-                            <Button
-                              onClick={() => window.open("tel:+919565837503")}
-                              className="w-full bg-[#0066FF] hover:bg-[#0056CC]"
-                            >
-                              <Phone className="mr-2 w-4 h-4" />
-                              Call Now
-                            </Button>
-                            <Button
-                              variant="outline"
-                              onClick={() =>
-                                window.open(
-                                  "mailto:purvank.sarawagi@vibeinn.online"
-                                )
-                              }
-                              className="w-full"
-                            >
-                              <Mail className="mr-2 w-4 h-4" />
-                              Send Email
-                            </Button>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Many More Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-8">
+            <div className="inline-block">
+              <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#0066FF] to-blue-500 rounded-full mb-6 mx-auto animate-pulse">
+                <Star className="w-10 h-10 text-white" />
+              </div>
+            </div>
+          </div>
+          
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            Just a Few from Our Portfolio
+          </h2>
+          
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            We've delivered solutions across healthcare, education, logistics, entertainment, and various other industries. Each project is built with precision, innovation, and attention to detail.
+          </p>
+
+         
+
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+            Want to see more of our work or discuss your project?
+          </p>
+
+          <Button
+            size="lg"
+            onClick={() => (window.location.href = "/contact")}
+            className="bg-gradient-to-r from-[#0066FF] to-blue-500 hover:from-[#0052CC] hover:to-blue-600 text-white rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all"
+          >
+            <Mail className="mr-2 w-5 h-5" />
+            Get in Touch
+          </Button>
         </div>
       </section>
 
