@@ -250,7 +250,7 @@ const ServicesPage = () => {
                         {service.technologies.map((tech, idx) => (
                           <Badge
                             key={idx}
-                            variant="secondary"
+                            variant="outline"
                             className="text-xs"
                           >
                             {tech}

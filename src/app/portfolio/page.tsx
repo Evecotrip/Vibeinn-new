@@ -13,6 +13,8 @@ import {
   Phone,
   Mail,
   BookOpen,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import {
@@ -35,6 +37,8 @@ import {
 } from "@/components/ui/dialog";
 
 const PortfolioPage = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
   const projects = [
     {
       title: "Social Media App",
@@ -365,7 +369,7 @@ const PortfolioPage = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {projects.slice(0, 10).map((project, index) => (
+            {projects.slice(0, 6).map((project, index) => (
               <Card
                 key={index}
                 className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 overflow-hidden"
@@ -414,21 +418,6 @@ const PortfolioPage = () => {
                 </CardHeader>
 
                 <CardContent className="space-y-6">
-                  {/* Stats 
-                  <div className="grid grid-cols-3 gap-4">
-                    {Object.entries(project.stats).map(([key, value]) => (
-                      <div key={key} className="text-center">
-                        <div className="text-lg font-bold text-gray-900 dark:text-white">
-                          {value}
-                        </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                          {key.replace(/([A-Z])/g, " $1").trim()}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  */}
-
                   {/* Features */}
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
@@ -468,6 +457,149 @@ const PortfolioPage = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Carousel Section for Projects 7-10 */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              More Amazing Projects
+            </h2>
+            <p className="text-base text-gray-600 dark:text-gray-300">
+              Explore our diverse portfolio of successful implementations
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Carousel Container */}
+            <div className="overflow-hidden rounded-2xl">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {projects.slice(6, 10).map((project, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800 overflow-hidden mx-auto max-w-2xl">
+                      <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                          {project.image ? (
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="object-cover w-full h-full"
+                            />
+                          ) : (
+                            project.icon
+                          )}
+                        </div>
+                        <div className="absolute top-3 left-3">
+                          <Badge className={getStatusColor(project.status)}>
+                            {project.status}
+                          </Badge>
+                        </div>
+                        <div className="absolute top-3 right-3">
+                          <Badge
+                            variant="outline"
+                            className="bg-white/90 dark:bg-gray-800/90"
+                          >
+                            {project.year}
+                          </Badge>
+                        </div>
+                      </div>
+
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                              {project.title}
+                            </CardTitle>
+                            <Badge variant="secondary" className="mb-2">
+                              {project.category}
+                            </Badge>
+                          </div>
+                        </div>
+                        <CardDescription className="text-sm text-gray-600 dark:text-gray-300">
+                          {project.description}
+                        </CardDescription>
+                      </CardHeader>
+
+                      <CardContent className="space-y-4">
+                        {/* Features */}
+                        <div>
+                          <h4 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">
+                            Key Features:
+                          </h4>
+                          <div className="grid grid-cols-1 gap-1.5">
+                            {project.features.slice(0, 3).map((feature, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-center text-xs text-gray-600 dark:text-gray-300"
+                              >
+                                <div className="w-1 h-1 bg-[#0066FF] rounded-full mr-2 flex-shrink-0" />
+                                {feature}
+                              </div>
+                            ))}
+                            {project.features.length > 3 && (
+                              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                +{project.features.length - 3} more features
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Technologies */}
+                        <div>
+                          <h4 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">
+                            Technologies:
+                          </h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.technologies.map((tech, idx) => (
+                              <Badge key={idx} variant="outline" className="text-xs py-0.5 px-2">
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={() => setCurrentSlide((prev) => Math.max(0, prev - 1))}
+              disabled={currentSlide === 0}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-900 dark:text-white" />
+            </button>
+            <button
+              onClick={() => setCurrentSlide((prev) => Math.min(3, prev + 1))}
+              disabled={currentSlide === 3}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10"
+            >
+              <ChevronRight className="w-5 h-5 text-gray-900 dark:text-white" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-6">
+              {[0, 1, 2, 3].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    currentSlide === index
+                      ? "w-6 bg-[#0066FF]"
+                      : "w-1.5 bg-gray-300 dark:bg-gray-600"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

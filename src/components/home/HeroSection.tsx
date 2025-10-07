@@ -83,7 +83,9 @@ const HeroSection = () => {
 
             {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-slate-900 dark:text-white">Empower </span>
+              <span className="text-slate-900 dark:text-white">Empower</span>
+              <br className="md:hidden" />
+              <span className="text-slate-900 dark:text-white hidden md:inline"> </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6C47FF] to-[#0066FF] dark:from-purple-400 dark:to-blue-400">
                 {displayedText}
                 <span className="animate-pulse">|</span>
