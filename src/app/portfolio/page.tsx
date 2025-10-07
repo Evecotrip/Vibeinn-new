@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ExternalLink,
   Github,
@@ -39,6 +39,15 @@ import {
 const PortfolioPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
+  // Auto-slide functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev === 3 ? 0 : prev + 1));
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(timer); // Cleanup on unmount
+  }, []);
+  
   const projects = [
     {
       title: "Social Media App",
@@ -71,30 +80,6 @@ const PortfolioPage = () => {
         users: "10K+",
         rating: "4.8",
         downloads: "50K+",
-      },
-    },
-    {
-      title: "AI Caption Editor App",
-      description:
-        "An intelligent caption editing application powered by AI that automatically generates, edits, and optimizes captions for social media content with advanced NLP capabilities.",
-      category: "AI Application",
-      image: "/ai-caption.jpeg",
-      technologies: ["React Native", "Gemini", "React", "OpenAI", "Cloudinary"],
-      features: [
-        "AI-powered caption generation",
-        "Multi-language support",
-        "Sentiment analysis",
-        "Hashtag suggestions",
-        "Batch processing",
-      ],
-      status: "In Beta Development",
-      link: "https://testflight.apple.com/join/HZXBbZfX",
-      year: "2025",
-      icon: <Bot className="w-8 h-8 text-purple-600" />,
-      stats: {
-        accuracy: "95%",
-        languages: "12+",
-        processingTime: "<2s",
       },
     },
     {
@@ -183,29 +168,7 @@ const PortfolioPage = () => {
         savings: "80% time",
       },
     },
-    {
-      title: "Dashboard",
-      description:
-        "A comprehensive admin dashboard for FreshGift e-commerce platform, providing detailed analytics, inventory management, and business insights.",
-      category: "Dashboard Application",
-      image: "/admin.png",
-      technologies: ["React", "Chart.js", "Node.js", "Express", "MySQL"],
-      features: [
-        "Real-time analytics",
-        "Inventory management",
-        "Sales reporting",
-        "Customer insights",
-        "Order fulfillment tracking",
-      ],
-      status: "Live",
-      year: "2025",
-      icon: <BarChart3 className="w-8 h-8 text-blue-600" />,
-      stats: {
-        dataPoints: "1M+",
-        reports: "50+",
-        efficiency: "+40%",
-      },
-    },
+   
     {
       title: "Institution",
       description:
@@ -331,6 +294,14 @@ const PortfolioPage = () => {
         experience: "28+ years",
       },
     },
+    {
+      title: "Travel Agency",
+      image: "/extra/ss1.png"
+    },
+    {
+      title: "Travel Agency",
+      image: "/extra/ss2.png"
+    }
   ];
 
   const getStatusColor = (status: string) => {
@@ -369,7 +340,7 @@ const PortfolioPage = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {projects.slice(0, 6).map((project, index) => (
+            {projects.slice(0, 4).map((project, index) => (
               <Card
                 key={index}
                 className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 overflow-hidden"
@@ -386,19 +357,7 @@ const PortfolioPage = () => {
                       project.icon
                     )}
                   </div>
-                  <div className="absolute top-4 left-4">
-                    <Badge className={getStatusColor(project.status)}>
-                      {project.status}
-                    </Badge>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <Badge
-                      variant="outline"
-                      className="bg-white/90 dark:bg-gray-800/90"
-                    >
-                      {project.year}
-                    </Badge>
-                  </div>
+                  
                 </div>
 
                 <CardHeader className="pb-4">
@@ -461,7 +420,7 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* Carousel Section for Projects 7-10 */}
+      {/* Carousel Section for Projects after 4th */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
@@ -489,81 +448,13 @@ const PortfolioPage = () => {
                             <img
                               src={project.image}
                               alt={project.title}
-                              className="object-cover w-full h-full"
+                              className="object-cover w-full h-full scale-140 transition-transform duration-700 ease-in-out group-hover:scale-155"
                             />
                           ) : (
                             project.icon
                           )}
                         </div>
-                        <div className="absolute top-3 left-3">
-                          <Badge className={getStatusColor(project.status)}>
-                            {project.status}
-                          </Badge>
-                        </div>
-                        <div className="absolute top-3 right-3">
-                          <Badge
-                            variant="outline"
-                            className="bg-white/90 dark:bg-gray-800/90"
-                          >
-                            {project.year}
-                          </Badge>
-                        </div>
                       </div>
-
-                      <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                              {project.title}
-                            </CardTitle>
-                            <Badge variant="secondary" className="mb-2">
-                              {project.category}
-                            </Badge>
-                          </div>
-                        </div>
-                        <CardDescription className="text-sm text-gray-600 dark:text-gray-300">
-                          {project.description}
-                        </CardDescription>
-                      </CardHeader>
-
-                      <CardContent className="space-y-4">
-                        {/* Features */}
-                        <div>
-                          <h4 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">
-                            Key Features:
-                          </h4>
-                          <div className="grid grid-cols-1 gap-1.5">
-                            {project.features.slice(0, 3).map((feature, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-center text-xs text-gray-600 dark:text-gray-300"
-                              >
-                                <div className="w-1 h-1 bg-[#0066FF] rounded-full mr-2 flex-shrink-0" />
-                                {feature}
-                              </div>
-                            ))}
-                            {project.features.length > 3 && (
-                              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                +{project.features.length - 3} more features
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Technologies */}
-                        <div>
-                          <h4 className="font-semibold text-sm text-gray-900 dark:text-white mb-2">
-                            Technologies:
-                          </h4>
-                          <div className="flex flex-wrap gap-1.5">
-                            {project.technologies.map((tech, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs py-0.5 px-2">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      </CardContent>
                     </Card>
                   </div>
                 ))}
